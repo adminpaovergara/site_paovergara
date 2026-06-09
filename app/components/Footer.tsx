@@ -6,7 +6,7 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="border-t border-ink/10">
       <div className="mx-auto grid max-w-frame gap-8 px-5 py-10 text-sm text-graphite sm:px-8 md:grid-cols-[1fr_auto]">
-        <p>© {new Date().getFullYear()} Pao Vergara. Color grading and finishing.</p>
+        <p>© {new Date().getFullYear()} Pao Vergara. Color grading / finishing.</p>
         <div className="flex flex-wrap gap-5">
           {socialLinks.map((link) => (
             <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="hover:text-ink">
@@ -14,7 +14,7 @@ export function Footer({ locale }: { locale: Locale }) {
             </a>
           ))}
           <Link href={`/${locale}/contact`} className="hover:text-ink">
-            Contact
+            {locale === "es" ? "Contacto" : "Contact"}
           </Link>
         </div>
       </div>

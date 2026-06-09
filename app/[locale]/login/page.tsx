@@ -2,6 +2,12 @@ import { LockKeyhole } from "lucide-react";
 import { SectionIntro } from "@/app/components/SectionIntro";
 import { siteCopy } from "@/app/data/site";
 import type { Locale } from "@/app/lib/i18n";
+import { createPageMetadata } from "@/app/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  return createPageMetadata("login", locale);
+}
 
 export default async function LoginPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
@@ -16,7 +22,7 @@ export default async function LoginPage({ params }: { params: Promise<{ locale: 
             {locale === "es" ? "Fase 3" : "Phase 3"}
           </p>
           <h2 className="mt-3 text-3xl font-semibold">
-            {locale === "es" ? "Acceso privado en construccion" : "Private access in progress"}
+            {locale === "es" ? "Acceso privado en construcción" : "Private access in progress"}
           </h2>
         </div>
       </section>

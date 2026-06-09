@@ -9,29 +9,29 @@ export const services: Service[] = [
   {
     title: { es: "Color grading", en: "Color grading" },
     description: {
-      es: "Construccion de look, balance, continuidad y acabado cromatico para publicidad, moda, musica y ficcion.",
-      en: "Look development, balance, continuity and color finishing for commercials, fashion, music and fiction."
+      es: "Look, balance y continuidad cromática.",
+      en: "Look, balance and color continuity."
     }
   },
   {
     title: { es: "Finishing digital", en: "Digital finishing" },
     description: {
-      es: "Preparacion final de piezas para entrega, cuidando textura, piel, producto, contraste y consistencia.",
-      en: "Final delivery preparation with careful attention to texture, skin, product, contrast and consistency."
+      es: "Textura, piel, producto y entrega final.",
+      en: "Texture, skin, product and final delivery."
     }
   },
   {
-    title: { es: "Edicion", en: "Editing" },
+    title: { es: "Edición", en: "Editing" },
     description: {
-      es: "Edicion audiovisual con foco en ritmo, claridad narrativa y necesidades de marca.",
-      en: "Editorial work focused on rhythm, narrative clarity and brand needs."
+      es: "Ritmo, claridad y estructura.",
+      en: "Rhythm, clarity and structure."
     }
   },
   {
-    title: { es: "Restauracion digital", en: "Digital restoration" },
+    title: { es: "Restauración digital", en: "Digital restoration" },
     description: {
-      es: "Recuperacion y tratamiento de material para preservar detalle, estabilidad y caracter visual.",
-      en: "Recovery and treatment of material to preserve detail, stability and visual character."
+      es: "Detalle, estabilidad y carácter visual.",
+      en: "Detail, stability and visual character."
     }
   }
 ];

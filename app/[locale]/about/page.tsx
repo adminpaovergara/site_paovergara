@@ -2,17 +2,23 @@ import Image from "next/image";
 import { SectionIntro } from "@/app/components/SectionIntro";
 import { siteCopy } from "@/app/data/site";
 import type { Locale } from "@/app/lib/i18n";
+import { createPageMetadata } from "@/app/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  return createPageMetadata("about", locale);
+}
 
 const bio = {
   es: [
-    "Paola Vergara es postproductora independiente enfocada en color grading y finishing, con mas de quince anos de experiencia en el medio audiovisual.",
-    "Es Magister en Postproduccion Digital Audiovisual por ESPOL y DaVinci Resolve Certified Trainer por Blackmagic Design.",
-    "Ha participado en proyectos nacionales e internacionales para publicidad, moda, musica y ficcion, colaborando con directores y equipos creativos de distintos mercados."
+    "Colorista y artista de finishing con más de quince años en postproducción.",
+    "Magíster en Postproducción Digital Audiovisual por ESPOL y DaVinci Resolve Certified Trainer.",
+    "Trabaja con directores, agencias y marcas en publicidad, moda, música y ficción."
   ],
   en: [
-    "Paola Vergara is an independent post-production artist focused on color grading and finishing, with more than fifteen years of experience in audiovisual work.",
-    "She holds a Master's degree in Digital Audiovisual Post-Production from ESPOL and is a DaVinci Resolve Certified Trainer by Blackmagic Design.",
-    "Her work spans national and international projects across commercials, fashion, music and fiction, collaborating with directors and creative teams in different markets."
+    "Colorist and finishing artist with more than fifteen years in post-production.",
+    "Master's degree in Digital Audiovisual Post-Production from ESPOL and DaVinci Resolve Certified Trainer.",
+    "Works with directors, agencies and brands across commercials, fashion, music and fiction."
   ]
 };
 
@@ -20,9 +26,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
 
   return (
-    <main className="py-20">
+    <main className="py-16 sm:py-20">
       <SectionIntro title={siteCopy[locale].aboutTitle} />
-      <section className="mx-auto mt-16 grid max-w-frame gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1fr]">
+      <section className="mx-auto mt-12 grid max-w-frame gap-10 px-5 sm:mt-16 sm:px-8 lg:grid-cols-[0.9fr_1fr] lg:gap-12">
         <div className="relative aspect-[4/5] overflow-hidden bg-mist">
           <Image
             src="https://paovergara.com/wp-content/uploads/2022/07/foto-back-con-franjas-negras-2-e1651257873252.png"
@@ -34,7 +40,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
         <div className="flex flex-col justify-end">
           {bio[locale].map((paragraph) => (
-            <p key={paragraph} className="border-t border-ink/15 py-6 text-xl leading-9 text-graphite">
+            <p key={paragraph} className="border-t border-ink/15 py-5 text-lg leading-8 text-graphite sm:py-6 sm:text-xl sm:leading-9">
               {paragraph}
             </p>
           ))}

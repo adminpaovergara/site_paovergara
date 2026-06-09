@@ -13,7 +13,7 @@ export function SectionIntro({
       <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold leading-[0.95] sm:text-7xl lg:text-8xl">
         {title}
       </h1>
-      {copy ? <p className="mt-6 max-w-2xl text-lg leading-8 text-graphite">{copy}</p> : null}
+      {copy ? <p className="mt-6 max-w-2xl text-base leading-7 text-graphite sm:text-lg sm:leading-8">{copy}</p> : null}
     </div>
   );
 }

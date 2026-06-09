@@ -3,17 +3,23 @@ import { ArrowRight } from "lucide-react";
 import { SectionIntro } from "@/app/components/SectionIntro";
 import { siteCopy } from "@/app/data/site";
 import type { Locale } from "@/app/lib/i18n";
+import { createPageMetadata } from "@/app/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  return createPageMetadata("remote", locale);
+}
 
 const steps = {
   es: [
-    "Recepcion de material, referencias y brief creativo.",
-    "Primera version de look y correcciones por video review.",
-    "Aprobacion final y entrega en los formatos acordados."
+    "Envía material y referencias.",
+    "Revisa look y ajustes.",
+    "Aprueba y descarga."
   ],
   en: [
-    "Receive footage, references and creative brief.",
-    "First look pass and review notes through video review.",
-    "Final approval and delivery in the agreed formats."
+    "Send footage and references.",
+    "Review look and notes.",
+    "Approve and download."
   ]
 };
 
@@ -23,12 +29,12 @@ export default async function RemoteColorPage({ params }: { params: Promise<{ lo
   return (
     <main className="py-20">
       <SectionIntro
-        eyebrow="Remote workflow"
+        eyebrow={locale === "es" ? "Flujo remoto" : "Remote workflow"}
         title={siteCopy[locale].remoteTitle}
         copy={
           locale === "es"
-            ? "Un flujo pensado para agencias, productoras y directores que necesitan color profesional sin importar la ciudad."
-            : "A workflow for agencies, production companies and directors who need professional color regardless of location."
+            ? "Color profesional, sin depender de la ciudad."
+            : "Professional color, wherever the team is."
         }
       />
       <section className="mx-auto mt-16 grid max-w-frame gap-8 px-5 sm:px-8 md:grid-cols-3">
@@ -41,7 +47,7 @@ export default async function RemoteColorPage({ params }: { params: Promise<{ lo
       </section>
       <div className="mx-auto mt-16 max-w-frame px-5 sm:px-8">
         <Link href={`/${locale}/contact`} className="inline-flex items-center gap-2 bg-ink px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-paper">
-          {locale === "es" ? "Cotizar proyecto" : "Request a quote"}
+          {locale === "es" ? "Cotizar" : "Request quote"}
           <ArrowRight size={16} />
         </Link>
       </div>

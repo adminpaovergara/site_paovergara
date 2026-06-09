@@ -2,6 +2,12 @@ import { SectionIntro } from "@/app/components/SectionIntro";
 import { services } from "@/app/data/services";
 import { siteCopy } from "@/app/data/site";
 import { type Locale, t } from "@/app/lib/i18n";
+import { createPageMetadata } from "@/app/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  return createPageMetadata("services", locale);
+}
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
