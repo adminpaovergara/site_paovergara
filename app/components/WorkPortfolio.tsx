@@ -132,9 +132,9 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
               </button>
             </div>
             <div className="grid flex-1 content-center gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[1fr_20rem] lg:gap-8">
-              <div className="relative aspect-video w-full overflow-hidden bg-black">
-                {embedUrl ? (
-                  <>
+              <div>
+                <div className="relative aspect-video w-full overflow-hidden bg-black">
+                  {embedUrl ? (
                     <iframe
                       allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
@@ -142,25 +142,19 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                       src={embedUrl}
                       title={`${activeProject.client} - ${activeProject.title[locale]}`}
                     />
-                    <div className="pointer-events-none absolute left-4 top-4 z-10 flex items-center gap-3 rounded-full bg-ink/65 py-2 pl-2 pr-4 text-paper backdrop-blur">
-                      <span className="relative h-10 w-10 overflow-hidden rounded-full border border-paper/30 bg-paper/10">
-                        <Image
-                          src={activeProject.afterImage ?? activeProject.thumbnail}
-                          alt=""
-                          fill
-                          sizes="40px"
-                          className="object-cover"
-                        />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-paper/60">Pao Vergara</span>
-                        <span className="block max-w-48 truncate text-sm font-semibold">{activeProject.title[locale]}</span>
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <div className="grid h-full place-items-center text-sm uppercase tracking-[0.16em] text-paper/60">{copy.unavailable}</div>
-                )}
+                  ) : (
+                    <div className="grid h-full place-items-center text-sm uppercase tracking-[0.16em] text-paper/60">{copy.unavailable}</div>
+                  )}
+                </div>
+                <div className="mt-4 flex items-center gap-3 border-b border-paper/10 pb-4 sm:border-b-0 sm:pb-0">
+                  <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-paper/25 bg-paper/10">
+                    <Image src={activeProject.afterImage ?? activeProject.thumbnail} alt="" fill sizes="44px" className="object-cover" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-paper/50">Pao Vergara</span>
+                    <span className="block truncate text-base font-semibold">{activeProject.title[locale]}</span>
+                  </span>
+                </div>
               </div>
               <aside className="border-t border-paper/15 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                 <h2 className="text-balance text-4xl font-semibold leading-none">{activeProject.title[locale]}</h2>
