@@ -37,11 +37,13 @@ function formatDuration(seconds?: number) {
 export function WorkPortfolio({
   locale,
   onModalChange,
-  projects
+  projects,
+  transitioningSlots = []
 }: {
   locale: Locale;
   onModalChange?: (isOpen: boolean) => void;
   projects: PortfolioProject[];
+  transitioningSlots?: number[];
 }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const activeProject = useMemo(() => projects.find((project) => project.slug === activeSlug) ?? null, [activeSlug, projects]);
@@ -81,7 +83,9 @@ export function WorkPortfolio({
         {projects.map((project, index) => (
           <button
             aria-label={`${copy.play}: ${project.client} - ${project.title[locale]}`}
-            className="group block text-left"
+            className={`group block text-left transition duration-500 ease-out ${
+              transitioningSlots.includes(index) ? "translate-y-3 opacity-0" : "translate-y-0 opacity-100"
+            }`}
             key={project.slug}
             onClick={() => setActiveSlug(project.slug)}
             type="button"
