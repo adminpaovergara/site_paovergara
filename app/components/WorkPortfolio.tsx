@@ -128,9 +128,9 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                 <X size={20} />
               </button>
             </div>
-            <div className="flex flex-1 flex-col justify-center px-5 py-6 sm:px-8">
+            <div className="flex flex-1 flex-col justify-center px-5 py-5 sm:px-8">
               <div>
-                <div className="relative aspect-video w-full overflow-hidden bg-black">
+                <div className="relative mx-auto aspect-video w-full max-h-[58svh] overflow-hidden bg-black">
                   {embedUrl ? (
                     <iframe
                       allow="autoplay; fullscreen; picture-in-picture"
