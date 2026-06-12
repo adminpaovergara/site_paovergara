@@ -7,6 +7,7 @@ import { siteCopy } from "@/app/data/site";
 import { isLocale, type Locale, t } from "@/app/lib/i18n";
 import { createPageMetadata } from "@/app/lib/metadata";
 import { getFeaturedPortfolioProjects } from "@/app/lib/portfolio-projects";
+import { getHomeSelectedWorkSettings } from "@/app/lib/site-settings";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
@@ -21,7 +22,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }
 
   const copy = siteCopy[locale];
-  const featured = await getFeaturedPortfolioProjects(12);
+  const selectedWorkSettings = await getHomeSelectedWorkSettings();
+  const featured = await getFeaturedPortfolioProjects(selectedWorkSettings.poolLimit);
 
   return (
     <main>
@@ -64,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {locale === "es" ? "Ver todo" : "View all"}
           </Link>
         </div>
-        <HomeWorkRotator projects={featured} locale={locale} />
+        <HomeWorkRotator projects={featured} locale={locale} settings={selectedWorkSettings} />
         <Link href={`/${locale}/work`} className="mt-10 inline-block text-sm font-semibold uppercase tracking-[0.16em] text-graphite hover:text-ink md:hidden">
           {locale === "es" ? "Ver todo" : "View all"}
         </Link>

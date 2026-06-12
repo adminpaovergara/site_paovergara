@@ -4,34 +4,43 @@ import { useEffect, useRef, useState } from "react";
 import { WorkPortfolio } from "@/app/components/WorkPortfolio";
 import type { Locale } from "@/app/lib/i18n";
 import type { PortfolioProject } from "@/app/lib/portfolio-projects";
+import type { HomeSelectedWorkSettings } from "@/app/lib/site-settings";
 
-const DISPLAY_COUNT = 4;
-const ROTATION_DELAY = 6500;
-const TRANSITION_DELAY = 420;
+function displayCount(projects: PortfolioProject[], settings: HomeSelectedWorkSettings) {
+  return Math.min(settings.visibleCount, projects.length);
+}
 
-function initialProjects(projects: PortfolioProject[]) {
-  return projects.slice(0, DISPLAY_COUNT);
+function initialProjects(projects: PortfolioProject[], settings: HomeSelectedWorkSettings) {
+  return projects.slice(0, displayCount(projects, settings));
 }
 
 function randomItem<T>(items: T[]) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-export function HomeWorkRotator({ locale, projects }: { locale: Locale; projects: PortfolioProject[] }) {
-  const [visibleProjects, setVisibleProjects] = useState(() => initialProjects(projects));
+export function HomeWorkRotator({
+  locale,
+  projects,
+  settings
+}: {
+  locale: Locale;
+  projects: PortfolioProject[];
+  settings: HomeSelectedWorkSettings;
+}) {
+  const [visibleProjects, setVisibleProjects] = useState(() => initialProjects(projects, settings));
   const [transitioningSlot, setTransitioningSlot] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const visibleProjectsRef = useRef(visibleProjects);
-  const canRotate = projects.length > DISPLAY_COUNT;
+  const canRotate = settings.rotationEnabled && projects.length > displayCount(projects, settings);
 
   useEffect(() => {
     visibleProjectsRef.current = visibleProjects;
   }, [visibleProjects]);
 
   useEffect(() => {
-    setVisibleProjects(initialProjects(projects));
+    setVisibleProjects(initialProjects(projects, settings));
     setTransitioningSlot(null);
-  }, [projects]);
+  }, [projects, settings]);
 
   useEffect(() => {
     if (!canRotate || isPaused) {
@@ -54,11 +63,11 @@ export function HomeWorkRotator({ locale, projects }: { locale: Locale; projects
       window.setTimeout(() => {
         setVisibleProjects((latestProjects) => latestProjects.map((project, index) => (index === slot ? nextProject : project)));
         window.setTimeout(() => setTransitioningSlot(null), 80);
-      }, TRANSITION_DELAY);
-    }, ROTATION_DELAY);
+      }, settings.transitionDurationMs);
+    }, settings.rotationIntervalMs);
 
     return () => window.clearInterval(interval);
-  }, [canRotate, isPaused, projects]);
+  }, [canRotate, isPaused, projects, settings.rotationIntervalMs, settings.transitionDurationMs]);
 
   return (
     <div

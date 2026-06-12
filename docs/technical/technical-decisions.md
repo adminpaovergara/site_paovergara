@@ -106,3 +106,16 @@ Estado inicial:
 
 - 6 videos publicados en Mux Free.
 - El admin futuro debera permitir configurar cuantos videos se muestran en Home y Work.
+
+## 009. Configuracion Publica del Sitio
+
+Decision:
+
+- Usar `site_settings` para parametros editables del sitio que no son sensibles.
+- Guardar `home_selected_work` como JSON publico para controlar la rotacion de trabajos en Home.
+
+Motivo:
+
+- Permite cambiar cantidad visible, intervalo, transicion y activacion desde el futuro admin.
+- Mantiene defaults en codigo para que el sitio siga funcionando si Supabase no responde.
+- Evita desplegar codigo por ajustes editoriales simples.

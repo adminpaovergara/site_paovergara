@@ -147,6 +147,41 @@ Modelo recomendado:
 - Mux guarda y procesa video para reproduccion.
 - R2 puede guardar masters, archivos finales o entregables pesados.
 
+### `site_settings`
+
+Configuraciones publicas del sitio editables desde el futuro admin.
+
+Uso actual:
+
+- `home_selected_work`: controla la rotacion de trabajos seleccionados en Home.
+
+Payload actual:
+
+```json
+{
+  "poolLimit": 12,
+  "visibleCount": 4,
+  "rotationEnabled": true,
+  "rotationMode": "random_single",
+  "rotationIntervalMs": 6500,
+  "transitionDurationMs": 420
+}
+```
+
+Reglas:
+
+- `visibleCount`: cuantos trabajos se ven al mismo tiempo.
+- `poolLimit`: cuantos trabajos destacados se cargan como grupo disponible.
+- `rotationEnabled`: prende/apaga la rotacion.
+- `rotationMode`: por ahora solo `random_single`.
+- `rotationIntervalMs`: tiempo entre cambios.
+- `transitionDurationMs`: duracion visual de la transicion.
+
+Acceso:
+
+- Lectura publica solo cuando `is_public = true`.
+- Escritura futura solo desde admin autenticado.
+
 ## RLS y Permisos
 
 Principio:
