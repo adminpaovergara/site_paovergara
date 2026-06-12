@@ -34,7 +34,15 @@ function formatDuration(seconds?: number) {
   return `${minutes}:${String(rest).padStart(2, "0")}`;
 }
 
-export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: PortfolioProject[] }) {
+export function WorkPortfolio({
+  locale,
+  onModalChange,
+  projects
+}: {
+  locale: Locale;
+  onModalChange?: (isOpen: boolean) => void;
+  projects: PortfolioProject[];
+}) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const activeProject = useMemo(() => projects.find((project) => project.slug === activeSlug) ?? null, [activeSlug, projects]);
   const embedUrl = activeProject ? videoEmbedUrl(activeProject) : undefined;
@@ -42,6 +50,10 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
     locale === "es"
       ? { after: "Después", before: "Antes", close: "Cerrar", play: "Reproducir", role: "Rol", duration: "Duración", unavailable: "Video en preparación" }
       : { after: "After", before: "Before", close: "Close", play: "Play", role: "Role", duration: "Duration", unavailable: "Video in preparation" };
+
+  useEffect(() => {
+    onModalChange?.(Boolean(activeProject));
+  }, [activeProject, onModalChange]);
 
   useEffect(() => {
     if (!activeProject) {

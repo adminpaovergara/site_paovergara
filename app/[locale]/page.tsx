@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { WorkPortfolio } from "@/app/components/WorkPortfolio";
+import { HomeWorkRotator } from "@/app/components/HomeWorkRotator";
 import { services } from "@/app/data/services";
 import { siteCopy } from "@/app/data/site";
 import { isLocale, type Locale, t } from "@/app/lib/i18n";
@@ -21,7 +21,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }
 
   const copy = siteCopy[locale];
-  const featured = await getFeaturedPortfolioProjects(4);
+  const featured = await getFeaturedPortfolioProjects(12);
 
   return (
     <main>
@@ -64,7 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {locale === "es" ? "Ver todo" : "View all"}
           </Link>
         </div>
-        <WorkPortfolio projects={featured} locale={locale} />
+        <HomeWorkRotator projects={featured} locale={locale} />
         <Link href={`/${locale}/work`} className="mt-10 inline-block text-sm font-semibold uppercase tracking-[0.16em] text-graphite hover:text-ink md:hidden">
           {locale === "es" ? "Ver todo" : "View all"}
         </Link>
