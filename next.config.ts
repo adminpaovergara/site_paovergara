@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "paovergara.com" },
       { protocol: "https", hostname: "i.vimeocdn.com" },
-      { protocol: "https", hostname: "img.youtube.com" }
+      { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "image.mux.com" }
     ]
   },
   async redirects() {

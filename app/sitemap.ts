@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { projects } from "@/app/data/projects";
 import { pagePaths, siteUrl, type SeoPage } from "@/app/data/seo";
 import { locales } from "@/app/lib/i18n";
 
@@ -25,14 +24,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  const projectPages = locales.flatMap((locale) =>
-    projects.map((project) => ({
-      url: `${siteUrl}/${locale}/work/${project.slug}`,
-      lastModified,
-      changeFrequency: "yearly" as const,
-      priority: project.featured ? 0.75 : 0.6
-    }))
-  );
-
-  return [...pages, ...projectPages];
+  return pages;
 }

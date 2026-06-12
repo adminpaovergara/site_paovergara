@@ -105,6 +105,48 @@ Placeholders soportados:
 - `{{phone}}`
 - `{{message}}`
 
+### `portfolio_projects`
+
+Portafolio publico editable y preparado para Mux.
+
+Uso actual:
+
+- Base inicial para administrar los trabajos destacados.
+- Estado actual: 6 videos publicados en Mux.
+- Permite migrar temporalmente desde Vimeo/YouTube y luego cambiar a Mux sin modificar el frontend.
+
+Campos relevantes:
+
+- `slug`
+- `title_es` / `title_en`
+- `description_es` / `description_en`
+- `client_name`
+- `category`
+- `year`
+- `role_es` / `role_en`
+- `thumbnail_url`
+- `before_image_url`
+- `after_image_url`
+- `video_provider`: `mux`, `vimeo`, `youtube`, `r2`, `external`
+- `video_status`: `draft`, `processing`, `ready`, `archived`
+- `video_url`
+- `mux_asset_id`
+- `mux_playback_id`
+- `featured`
+- `published`
+- `order_index`
+
+Acceso:
+
+- Lectura publica solo de proyectos `published = true`.
+- En Fase 2 se editara desde el portal de administracion.
+
+Modelo recomendado:
+
+- Supabase guarda metadata y permisos.
+- Mux guarda y procesa video para reproduccion.
+- R2 puede guardar masters, archivos finales o entregables pesados.
+
 ## RLS y Permisos
 
 Principio:
@@ -135,7 +177,6 @@ order by tablename, policyname;
 Tablas recomendadas:
 
 - `profiles`
-- `portfolio_projects`
 - `services`
 - `testimonials`
 - `content_blocks`

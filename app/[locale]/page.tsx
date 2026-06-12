@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { ProjectCard } from "@/app/components/ProjectCard";
-import { projects } from "@/app/data/projects";
+import { WorkPortfolio } from "@/app/components/WorkPortfolio";
 import { services } from "@/app/data/services";
 import { siteCopy } from "@/app/data/site";
 import { isLocale, type Locale, t } from "@/app/lib/i18n";
 import { createPageMetadata } from "@/app/lib/metadata";
+import { getFeaturedPortfolioProjects } from "@/app/lib/portfolio-projects";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
@@ -21,7 +21,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }
 
   const copy = siteCopy[locale];
-  const featured = projects.filter((project) => project.featured).slice(0, 4);
+  const featured = await getFeaturedPortfolioProjects(4);
 
   return (
     <main>
@@ -64,11 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {locale === "es" ? "Ver todo" : "View all"}
           </Link>
         </div>
-        <div className="grid gap-12 md:grid-cols-2">
-          {featured.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} locale={locale} priority={index < 2} />
-          ))}
-        </div>
+        <WorkPortfolio projects={featured} locale={locale} />
         <Link href={`/${locale}/work`} className="mt-10 inline-block text-sm font-semibold uppercase tracking-[0.16em] text-graphite hover:text-ink md:hidden">
           {locale === "es" ? "Ver todo" : "View all"}
         </Link>

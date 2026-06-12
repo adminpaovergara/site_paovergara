@@ -17,7 +17,8 @@ Motivo:
 Decision:
 
 - Usar Supabase para leads y catalogos del formulario en Fase 1.
-- Migrar portfolio/servicios a Supabase en Fase 2 cuando exista admin.
+- Usar Supabase para metadata del portafolio desde Fase 1.
+- Migrar servicios a Supabase en Fase 2 cuando exista admin.
 
 Motivo:
 
@@ -85,3 +86,23 @@ Motivo:
 
 - Permite modificar el asunto, texto y HTML desde el futuro portal de administracion sin programar.
 - Mantiene el flujo de contacto funcionando aunque falte temporalmente la plantilla.
+
+## 008. Video y Portafolio
+
+Decision:
+
+- Usar `portfolio_projects` en Supabase como fuente futura de administracion del portafolio.
+- Guardar metadata, estado, orden y referencias de video en Supabase.
+- Usar Mux para los videos destacados del portafolio publico.
+- Mantener soporte temporal para Vimeo/YouTube durante la migracion.
+
+Motivo:
+
+- Mux prepara el camino hacia un portal de clientes tipo Frame.io con reproduccion, procesamiento y playback profesional.
+- Supabase no debe guardar archivos de video pesados; debe administrar metadata, permisos y estados.
+- La migracion por etapas evita bloquear el rediseño mientras se descargan/suben videos.
+
+Estado inicial:
+
+- 6 videos publicados en Mux Free.
+- El admin futuro debera permitir configurar cuantos videos se muestran en Home y Work.
