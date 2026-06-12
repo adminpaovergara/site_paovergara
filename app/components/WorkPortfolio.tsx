@@ -82,7 +82,7 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                 priority={index < 2}
                 sizes="(min-width: 1024px) 45vw, 100vw"
                 className={`object-cover transition duration-500 group-hover:scale-[1.035] ${
-                  project.beforeImage ? "" : "brightness-110 contrast-75 grayscale saturate-50"
+                  project.beforeImage ? "" : "brightness-110 contrast-75 saturate-[0.62] sepia-[0.08]"
                 }`}
               />
               <Image
