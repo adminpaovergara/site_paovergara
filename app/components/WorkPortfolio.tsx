@@ -8,17 +8,17 @@ import type { PortfolioProject } from "@/app/lib/portfolio-projects";
 
 function videoEmbedUrl(project: PortfolioProject) {
   if (project.videoProvider === "mux" && project.muxPlaybackId) {
-    return `https://player.mux.com/${project.muxPlaybackId}?autoplay=muted`;
+    return `https://player.mux.com/${project.muxPlaybackId}?autoplay=any`;
   }
 
   if (project.videoProvider === "vimeo" && project.videoUrl) {
     const id = project.videoUrl.match(/(?:video\/|vimeo\.com\/)(\d+)/)?.[1];
-    return id ? `https://player.vimeo.com/video/${id}?autoplay=1&muted=1&title=0&byline=0&portrait=0` : project.videoUrl;
+    return id ? `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0` : project.videoUrl;
   }
 
   if (project.videoProvider === "youtube" && project.videoUrl) {
     const id = project.videoUrl.match(/[?&]v=([^&]+)/)?.[1] ?? project.videoUrl.match(/youtu\.be\/([^?]+)/)?.[1];
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0` : project.videoUrl;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : project.videoUrl;
   }
 
   return project.videoUrl;
@@ -102,9 +102,6 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
               <div className="absolute bottom-4 left-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur">
                 {copy.play}
               </div>
-              {project.videoProvider === "mux" ? (
-                <div className="absolute right-4 top-4 bg-paper px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-ink">Mux</div>
-              ) : null}
             </div>
             <div className="mt-4 flex items-start justify-between gap-5 border-t border-ink/15 pt-4">
               <div>
@@ -121,9 +118,12 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
         <div className="fixed inset-0 z-50 bg-ink/95 text-paper" role="dialog" aria-modal="true" aria-label={`${activeProject.client} - ${activeProject.title[locale]}`}>
           <div className="flex min-h-svh flex-col">
             <div className="flex items-center justify-between border-b border-paper/15 px-5 py-4 sm:px-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">{activeProject.category}</p>
-                <p className="mt-1 text-lg font-semibold">{activeProject.client}</p>
+              <div className="flex items-center gap-4">
+                <Image src="/icon" alt="Pao Vergara" width={40} height={40} className="h-10 w-10 border border-paper/20" />
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">{activeProject.category}</p>
+                  <p className="mt-1 text-lg font-semibold">{activeProject.client}</p>
+                </div>
               </div>
               <button
                 aria-label={copy.close}
