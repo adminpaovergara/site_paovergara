@@ -128,7 +128,7 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                 <X size={20} />
               </button>
             </div>
-            <div className="grid flex-1 content-center gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[1fr_20rem] lg:gap-8">
+            <div className="flex flex-1 flex-col justify-center px-5 py-6 sm:px-8">
               <div>
                 <div className="relative aspect-video w-full overflow-hidden bg-black">
                   {embedUrl ? (
@@ -143,33 +143,31 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                     <div className="grid h-full place-items-center text-sm uppercase tracking-[0.16em] text-paper/60">{copy.unavailable}</div>
                   )}
                 </div>
-                <div className="mt-4 flex items-center gap-3 border-b border-paper/10 pb-4 sm:border-b-0 sm:pb-0">
+                <div className="mt-5 flex items-start gap-3">
                   <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-paper/25 bg-paper/10">
                     <Image src={activeProject.afterImage ?? activeProject.thumbnail} alt="" fill sizes="44px" className="object-cover" />
                   </span>
-                  <span className="grid min-w-0 gap-1">
-                    <span className="block truncate text-base font-semibold">{activeProject.title[locale]}</span>
-                    <span className="block truncate text-sm text-paper/55">
+                  <div className="min-w-0 flex-1">
+                    <h2 className="truncate text-xl font-semibold leading-tight">{activeProject.title[locale]}</h2>
+                    <p className="mt-1 truncate text-sm text-paper/55">
                       Pao Vergara · {activeProject.client} · {activeProject.category}
-                    </span>
-                  </span>
+                    </p>
+                    <p className="mt-4 max-w-3xl leading-7 text-paper/70">{activeProject.description[locale]}</p>
+                    <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-4 text-sm">
+                      <div>
+                        <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-paper/45">{copy.role}</dt>
+                        <dd className="mt-2">{activeProject.role[locale]}</dd>
+                      </div>
+                      {activeProject.durationSeconds ? (
+                        <div>
+                          <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-paper/45">{copy.duration}</dt>
+                          <dd className="mt-2">{formatDuration(activeProject.durationSeconds)}</dd>
+                        </div>
+                      ) : null}
+                    </dl>
+                  </div>
                 </div>
               </div>
-              <aside className="border-t border-paper/15 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                <p className="leading-7 text-paper/70">{activeProject.description[locale]}</p>
-                <dl className="mt-8 grid gap-5 text-sm">
-                  <div>
-                    <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-paper/45">{copy.role}</dt>
-                    <dd className="mt-2">{activeProject.role[locale]}</dd>
-                  </div>
-                  {activeProject.durationSeconds ? (
-                    <div>
-                      <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-paper/45">{copy.duration}</dt>
-                      <dd className="mt-2">{formatDuration(activeProject.durationSeconds)}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-              </aside>
             </div>
           </div>
         </div>
