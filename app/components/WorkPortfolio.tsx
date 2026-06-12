@@ -118,10 +118,7 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
         <div className="fixed inset-0 z-50 bg-ink/95 text-paper" role="dialog" aria-modal="true" aria-label={`${activeProject.client} - ${activeProject.title[locale]}`}>
           <div className="flex min-h-svh flex-col">
             <div className="flex items-center justify-between border-b border-paper/15 px-5 py-4 sm:px-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">{activeProject.category}</p>
-                <p className="mt-1 text-lg font-semibold">{activeProject.client}</p>
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">Pao Vergara</p>
               <button
                 aria-label={copy.close}
                 className="grid h-11 w-11 place-items-center border border-paper/20 transition hover:bg-paper hover:text-ink"
@@ -150,15 +147,16 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
                   <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-paper/25 bg-paper/10">
                     <Image src={activeProject.afterImage ?? activeProject.thumbnail} alt="" fill sizes="44px" className="object-cover" />
                   </span>
-                  <span className="min-w-0">
-                    <span className="block text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-paper/50">Pao Vergara</span>
+                  <span className="grid min-w-0 gap-1">
                     <span className="block truncate text-base font-semibold">{activeProject.title[locale]}</span>
+                    <span className="block truncate text-sm text-paper/55">
+                      Pao Vergara · {activeProject.client} · {activeProject.category}
+                    </span>
                   </span>
                 </div>
               </div>
               <aside className="border-t border-paper/15 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-                <h2 className="text-balance text-4xl font-semibold leading-none">{activeProject.title[locale]}</h2>
-                <p className="mt-5 leading-7 text-paper/70">{activeProject.description[locale]}</p>
+                <p className="leading-7 text-paper/70">{activeProject.description[locale]}</p>
                 <dl className="mt-8 grid gap-5 text-sm">
                   <div>
                     <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-paper/45">{copy.role}</dt>
