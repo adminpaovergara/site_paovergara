@@ -8,17 +8,17 @@ import type { PortfolioProject } from "@/app/lib/portfolio-projects";
 
 function videoEmbedUrl(project: PortfolioProject) {
   if (project.videoProvider === "mux" && project.muxPlaybackId) {
-    return `https://player.mux.com/${project.muxPlaybackId}?autoplay=1`;
+    return `https://player.mux.com/${project.muxPlaybackId}?autoplay=muted`;
   }
 
   if (project.videoProvider === "vimeo" && project.videoUrl) {
     const id = project.videoUrl.match(/(?:video\/|vimeo\.com\/)(\d+)/)?.[1];
-    return id ? `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0` : project.videoUrl;
+    return id ? `https://player.vimeo.com/video/${id}?autoplay=1&muted=1&title=0&byline=0&portrait=0` : project.videoUrl;
   }
 
   if (project.videoProvider === "youtube" && project.videoUrl) {
     const id = project.videoUrl.match(/[?&]v=([^&]+)/)?.[1] ?? project.videoUrl.match(/youtu\.be\/([^?]+)/)?.[1];
-    return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : project.videoUrl;
+    return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&rel=0` : project.videoUrl;
   }
 
   return project.videoUrl;
@@ -40,8 +40,8 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
   const embedUrl = activeProject ? videoEmbedUrl(activeProject) : undefined;
   const copy =
     locale === "es"
-      ? { close: "Cerrar", play: "Reproducir", role: "Rol", duration: "Duración", unavailable: "Video en preparación" }
-      : { close: "Close", play: "Play", role: "Role", duration: "Duration", unavailable: "Video in preparation" };
+      ? { after: "Después", before: "Antes", close: "Cerrar", play: "Reproducir", role: "Rol", duration: "Duración", unavailable: "Video en preparación" }
+      : { after: "After", before: "Before", close: "Close", play: "Play", role: "Role", duration: "Duration", unavailable: "Video in preparation" };
 
   useEffect(() => {
     if (!activeProject) {
@@ -76,15 +76,30 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
           >
             <div className="relative aspect-video overflow-hidden bg-ink">
               <Image
-                src={project.thumbnail}
+                src={project.beforeImage ?? project.thumbnail}
                 alt={`${project.client} - ${project.title[locale]}`}
                 fill
                 priority={index < 2}
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover transition duration-500 group-hover:scale-[1.035]"
+                className={`object-cover transition duration-500 group-hover:scale-[1.035] ${
+                  project.beforeImage ? "" : "brightness-110 contrast-75 grayscale saturate-50"
+                }`}
+              />
+              <Image
+                src={project.afterImage ?? project.thumbnail}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover opacity-0 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100 group-focus-visible:scale-[1.035] group-focus-visible:opacity-100"
               />
               <div className="absolute inset-0 bg-ink/0 transition group-hover:bg-ink/20" />
-              <div className="absolute left-4 top-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur">
+              <div className="absolute left-4 top-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur transition group-hover:opacity-0 group-focus-visible:opacity-0">
+                {copy.before}
+              </div>
+              <div className="absolute left-4 top-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper opacity-0 backdrop-blur transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                {copy.after}
+              </div>
+              <div className="absolute bottom-4 left-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur">
                 {copy.play}
               </div>
               {project.videoProvider === "mux" ? (
