@@ -99,7 +99,7 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
               <div className="absolute left-4 top-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper opacity-0 backdrop-blur transition group-hover:opacity-100 group-focus-visible:opacity-100">
                 {copy.after}
               </div>
-              <div className="absolute bottom-4 left-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur">
+              <div className="absolute bottom-4 right-4 border border-paper/70 bg-ink/60 px-3 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper backdrop-blur">
                 {copy.play}
               </div>
             </div>
