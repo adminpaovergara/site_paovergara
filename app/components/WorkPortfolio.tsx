@@ -118,12 +118,9 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
         <div className="fixed inset-0 z-50 bg-ink/95 text-paper" role="dialog" aria-modal="true" aria-label={`${activeProject.client} - ${activeProject.title[locale]}`}>
           <div className="flex min-h-svh flex-col">
             <div className="flex items-center justify-between border-b border-paper/15 px-5 py-4 sm:px-8">
-              <div className="flex items-center gap-4">
-                <Image src="/icon" alt="Pao Vergara" width={40} height={40} className="h-10 w-10 border border-paper/20" />
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">{activeProject.category}</p>
-                  <p className="mt-1 text-lg font-semibold">{activeProject.client}</p>
-                </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/55">{activeProject.category}</p>
+                <p className="mt-1 text-lg font-semibold">{activeProject.client}</p>
               </div>
               <button
                 aria-label={copy.close}
@@ -137,13 +134,30 @@ export function WorkPortfolio({ locale, projects }: { locale: Locale; projects: 
             <div className="grid flex-1 content-center gap-6 px-5 py-6 sm:px-8 lg:grid-cols-[1fr_20rem] lg:gap-8">
               <div className="relative aspect-video w-full overflow-hidden bg-black">
                 {embedUrl ? (
-                  <iframe
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full"
-                    src={embedUrl}
-                    title={`${activeProject.client} - ${activeProject.title[locale]}`}
-                  />
+                  <>
+                    <iframe
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 h-full w-full"
+                      src={embedUrl}
+                      title={`${activeProject.client} - ${activeProject.title[locale]}`}
+                    />
+                    <div className="pointer-events-none absolute left-4 top-4 z-10 flex items-center gap-3 rounded-full bg-ink/65 py-2 pl-2 pr-4 text-paper backdrop-blur">
+                      <span className="relative h-10 w-10 overflow-hidden rounded-full border border-paper/30 bg-paper/10">
+                        <Image
+                          src={activeProject.afterImage ?? activeProject.thumbnail}
+                          alt=""
+                          fill
+                          sizes="40px"
+                          className="object-cover"
+                        />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-paper/60">Pao Vergara</span>
+                        <span className="block max-w-48 truncate text-sm font-semibold">{activeProject.title[locale]}</span>
+                      </span>
+                    </div>
+                  </>
                 ) : (
                   <div className="grid h-full place-items-center text-sm uppercase tracking-[0.16em] text-paper/60">{copy.unavailable}</div>
                 )}
