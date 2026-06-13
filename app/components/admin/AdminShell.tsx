@@ -42,7 +42,6 @@ export function AdminShell({ children, profile }: { children: React.ReactNode; p
             </Link>
             <div className="flex items-center gap-2">
               <AdminMobileNav role={profile.role} userName={profile.full_name ?? profile.email} />
-              <LogoutButton compact />
             </div>
           </div>
         </header>

@@ -3,14 +3,28 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { adminNavItems } from "@/app/components/admin/adminNav";
+import { LogoutButton } from "@/app/components/admin/LogoutButton";
 import type { Profile } from "@/app/lib/admin/auth";
 
 export function AdminMobileNav({ role, userName }: { role: Profile["role"]; userName: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const visibleItems = adminNavItems.filter((item) => item.roles.includes(role));
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
 
   return (
     <>
@@ -26,16 +40,10 @@ export function AdminMobileNav({ role, userName }: { role: Profile["role"]; user
       </button>
 
       {open ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button
-            aria-label="Cerrar menú"
-            className="absolute inset-0 bg-ink/45"
-            onClick={() => setOpen(false)}
-            type="button"
-          />
+        <div aria-modal="true" className="fixed inset-0 z-[100] h-screen min-h-screen overflow-hidden bg-[#f4f1ea] text-ink lg:hidden" role="dialog">
           <nav
             aria-label="Navegación de administración"
-            className="absolute bottom-0 left-0 right-0 max-h-[88dvh] overflow-y-auto border-t border-ink/10 bg-[#f4f1ea] px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 shadow-2xl"
+            className="flex h-full min-h-screen flex-col overflow-y-auto bg-[#f4f1ea] px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-[calc(1rem+env(safe-area-inset-top))] sm:px-8"
             id="admin-mobile-menu"
           >
             <div className="flex items-start justify-between gap-4 border-b border-ink/10 pb-4">
@@ -75,6 +83,10 @@ export function AdminMobileNav({ role, userName }: { role: Profile["role"]; user
                   </Link>
                 );
               })}
+            </div>
+
+            <div className="mt-auto border-t border-ink/10 pt-4">
+              <LogoutButton />
             </div>
           </nav>
         </div>
