@@ -8,8 +8,7 @@ const staticPages: Array<{ page: SeoPage; priority: number }> = [
   { page: "services", priority: 0.8 },
   { page: "remote", priority: 0.8 },
   { page: "about", priority: 0.7 },
-  { page: "contact", priority: 0.7 },
-  { page: "login", priority: 0.3 }
+  { page: "contact", priority: 0.7 }
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

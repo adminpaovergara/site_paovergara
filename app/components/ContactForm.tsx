@@ -160,30 +160,38 @@ export function ContactForm({ catalogs, locale }: { catalogs: ContactCatalogs; l
     setStatus("sending");
     setFeedback("");
 
-    const response = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        phoneCountryCode: String(formData.get("phoneCountryCode") ?? "").trim(),
-        phoneNumber,
-        contactPreference: String(formData.get("contactPreference") ?? "").trim(),
-        company: String(formData.get("company") ?? "").trim(),
-        country,
-        projectType,
-        urgency,
-        message,
-        website: String(formData.get("website") ?? "").trim(),
-        formStartedAt: String(formData.get("formStartedAt") ?? "").trim(),
-        locale,
-        sourcePath: window.location.pathname,
-        referrer: document.referrer,
-        utmSource: new URLSearchParams(window.location.search).get("utm_source") ?? "",
-        utmMedium: new URLSearchParams(window.location.search).get("utm_medium") ?? "",
-        utmCampaign: new URLSearchParams(window.location.search).get("utm_campaign") ?? ""
-      })
-    });
+    let response: Response;
+
+    try {
+      response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phoneCountryCode: String(formData.get("phoneCountryCode") ?? "").trim(),
+          phoneNumber,
+          contactPreference: String(formData.get("contactPreference") ?? "").trim(),
+          company: String(formData.get("company") ?? "").trim(),
+          country,
+          projectType,
+          urgency,
+          message,
+          website: String(formData.get("website") ?? "").trim(),
+          formStartedAt: String(formData.get("formStartedAt") ?? "").trim(),
+          locale,
+          sourcePath: window.location.pathname,
+          referrer: document.referrer,
+          utmSource: new URLSearchParams(window.location.search).get("utm_source") ?? "",
+          utmMedium: new URLSearchParams(window.location.search).get("utm_medium") ?? "",
+          utmCampaign: new URLSearchParams(window.location.search).get("utm_campaign") ?? ""
+        })
+      });
+    } catch {
+      setStatus("error");
+      setFeedback(copy.error);
+      return;
+    }
 
     if (!response.ok) {
       setStatus("error");

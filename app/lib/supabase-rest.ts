@@ -32,34 +32,38 @@ function getSupabaseKey(mode: SupabaseMode) {
 
 export async function supabaseRest<T>({
   body,
-  mode = "publishable",
+  method,
+  mode = "service",
   path,
+  prefer,
   revalidate
 }: {
   body?: unknown;
+  method?: "GET" | "POST" | "PATCH" | "DELETE";
   mode?: SupabaseMode;
   path: string;
+  prefer?: string;
   revalidate?: number;
 }) {
   const key = getSupabaseKey(mode);
-  const method = body ? "POST" : "GET";
+  const requestMethod = method ?? (body ? "POST" : "GET");
   const response = await fetch(`${getSupabaseUrl()}/rest/v1/${path}`, {
-    method,
+    method: requestMethod,
     headers: {
       apikey: key,
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
-      ...(body ? { Prefer: "return=minimal" } : {})
+      ...(body ? { Prefer: prefer ?? "return=minimal" } : {})
     },
     body: body ? JSON.stringify(body) : undefined,
     next: revalidate ? { revalidate } : undefined
   });
 
   if (!response.ok) {
-    throw new Error(`Supabase ${method} ${path} failed: ${response.status} ${await response.text()}`);
+    throw new Error(`Supabase ${requestMethod} ${path} failed: ${response.status} ${await response.text()}`);
   }
 
-  if (method === "POST") {
+  if (requestMethod !== "GET") {
     return undefined as T;
   }
 

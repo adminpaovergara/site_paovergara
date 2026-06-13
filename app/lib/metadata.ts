@@ -11,9 +11,9 @@ export function localizedPath(locale: Locale, path = "") {
   return `/${locale}${path}`;
 }
 
-export function buildAlternates(path = "") {
+export function buildAlternates(locale: Locale, path = "") {
   return {
-    canonical: `/es${path}`,
+    canonical: `/${locale}${path}`,
     languages: {
       es: `/es${path}`,
       en: `/en${path}`,
@@ -30,7 +30,8 @@ export function createPageMetadata(page: SeoPage, locale: Locale): Metadata {
   return {
     title: seo.title,
     description: seo.description,
-    alternates: buildAlternates(path),
+    alternates: buildAlternates(locale, path),
+    robots: page === "login" ? { index: false, follow: false } : undefined,
     openGraph: {
       title: seo.title,
       description: seo.description,
@@ -77,7 +78,7 @@ export function createProjectMetadata({
   return {
     title: pageTitle,
     description,
-    alternates: buildAlternates(path),
+    alternates: buildAlternates(locale, path),
     openGraph: {
       title: pageTitle,
       description,

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { HomeJsonLd } from "@/app/components/JsonLd";
 import { HomeWorkRotator } from "@/app/components/HomeWorkRotator";
 import { services } from "@/app/data/services";
 import { siteCopy } from "@/app/data/site";
@@ -27,6 +28,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <main>
+      <HomeJsonLd locale={locale} />
       <section className="mx-auto grid min-h-[calc(100svh-73px)] max-w-frame content-end px-5 pb-8 pt-16 sm:px-8 sm:pt-20 lg:grid-cols-[1fr_0.75fr] lg:gap-16">
         <div>
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-graphite">{copy.eyebrow}</p>

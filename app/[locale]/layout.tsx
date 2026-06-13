@@ -21,12 +21,10 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
-      <body>
-        <Header locale={locale as Locale} />
-        {children}
-        <Footer locale={locale as Locale} />
-      </body>
-    </html>
+    <>
+      <Header locale={locale as Locale} />
+      {children}
+      <Footer locale={locale as Locale} />
+    </>
   );
 }
