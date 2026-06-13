@@ -13,7 +13,7 @@ export function ActionCard({
   label: string;
 }) {
   return (
-    <Link href={href} className="group grid min-h-52 content-between border border-ink/10 bg-paper p-5 transition hover:border-ink/40">
+    <Link href={href} className="group grid min-h-44 content-between border border-ink/10 bg-paper p-5 transition hover:border-ink/40 sm:min-h-52">
       <div>
         <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-graphite">
           <Info size={14} />

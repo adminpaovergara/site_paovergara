@@ -1,18 +1,9 @@
 import Link from "next/link";
-import { BarChart3, Briefcase, Clapperboard, FolderKanban, Home, Inbox, Mail, Settings, Users } from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import type { Profile } from "@/app/lib/admin/auth";
+import { AdminMobileNav } from "@/app/components/admin/AdminMobileNav";
+import { adminNavItems } from "@/app/components/admin/adminNav";
 import { LogoutButton } from "@/app/components/admin/LogoutButton";
-
-const navItems = [
-  { href: "/admin", label: "Dashboard", icon: Home, roles: ["admin", "editor"] },
-  { href: "/admin/work", label: "Trabajos", icon: Clapperboard, roles: ["admin", "editor"] },
-  { href: "/admin/leads", label: "Leads", icon: Inbox, roles: ["admin", "editor"] },
-  { href: "/admin/clients", label: "Clientes", icon: Briefcase, roles: ["admin"] },
-  { href: "/admin/users", label: "Usuarios", icon: Users, roles: ["admin"] },
-  { href: "/admin/settings", label: "Settings", icon: Settings, roles: ["admin"] },
-  { href: "/admin/catalogs", label: "Catálogos", icon: FolderKanban, roles: ["admin", "editor"] },
-  { href: "/admin/email-templates", label: "Correos", icon: Mail, roles: ["admin"] }
-];
 
 export function AdminShell({ children, profile }: { children: React.ReactNode; profile: Profile }) {
   return (
@@ -23,7 +14,7 @@ export function AdminShell({ children, profile }: { children: React.ReactNode; p
           <p className="mt-2 text-2xl font-semibold">Pao Vergara</p>
         </Link>
         <nav className="mt-10 grid gap-1">
-          {navItems
+          {adminNavItems
             .filter((item) => item.roles.includes(profile.role))
             .map((item) => {
               const Icon = item.icon;
@@ -49,10 +40,13 @@ export function AdminShell({ children, profile }: { children: React.ReactNode; p
             <Link href="/admin" className="font-semibold uppercase tracking-[0.16em]">
               Pao Admin
             </Link>
-            <LogoutButton compact />
+            <div className="flex items-center gap-2">
+              <AdminMobileNav role={profile.role} userName={profile.full_name ?? profile.email} />
+              <LogoutButton compact />
+            </div>
           </div>
         </header>
-        <main className="mx-auto max-w-[1500px] px-5 py-8 sm:px-8 lg:py-10">{children}</main>
+        <main className="mx-auto max-w-[1500px] px-5 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-8 lg:py-10">{children}</main>
       </div>
     </div>
   );
@@ -76,16 +70,16 @@ export function AdminPageHeader({
         <h1 className="mt-3 max-w-4xl text-balance text-4xl font-semibold leading-none sm:text-6xl">{title}</h1>
         <p className="mt-4 max-w-2xl leading-7 text-graphite">{copy}</p>
       </div>
-      {action ? <div className="shrink-0">{action}</div> : null}
+      {action ? <div className="w-full shrink-0 sm:w-auto [&>*]:w-full sm:[&>*]:w-auto">{action}</div> : null}
     </div>
   );
 }
 
 export function InfoHint({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-ink/15 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-graphite">
+    <span className="inline-flex max-w-full items-center rounded-full border border-ink/15 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-graphite">
       <BarChart3 className="mr-1" size={12} />
-      {children}
+      <span className="min-w-0 leading-5">{children}</span>
     </span>
   );
 }

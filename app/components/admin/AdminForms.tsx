@@ -16,11 +16,11 @@ function Field({ children, label }: { children: React.ReactNode; label: string }
 }
 
 function inputClass() {
-  return "h-12 border border-ink/15 bg-transparent px-3 text-sm outline-none transition focus:border-ink";
+  return "h-12 w-full min-w-0 border border-ink/15 bg-transparent px-3 text-sm outline-none transition focus:border-ink";
 }
 
 function textareaClass() {
-  return "min-h-24 border border-ink/15 bg-transparent px-3 py-3 text-sm outline-none transition focus:border-ink";
+  return "min-h-24 w-full min-w-0 border border-ink/15 bg-transparent px-3 py-3 text-sm outline-none transition focus:border-ink";
 }
 
 function ActionMessage({ status, success, error }: { status: Status; success: string; error: string }) {
@@ -124,7 +124,7 @@ export function CreateUserForm({ defaultRole = "client", compact = false }: { de
           </button>
         </div>
       ) : null}
-      <button className="inline-flex h-12 items-center justify-center gap-2 bg-ink px-4 text-xs font-semibold uppercase tracking-[0.12em] text-paper" disabled={status === "saving"} type="submit">
+      <button className="inline-flex h-12 w-full items-center justify-center gap-2 bg-ink px-4 text-xs font-semibold uppercase tracking-[0.12em] text-paper sm:w-auto" disabled={status === "saving"} type="submit">
         {status === "saving" ? <Loader2 className="animate-spin" size={15} /> : <UserPlus size={15} />}
         Crear acceso
       </button>
@@ -174,7 +174,7 @@ export function LeadActions({ id, status: initialStatus, notes }: { id: string; 
         <textarea className={textareaClass()} defaultValue={notes ?? ""} name="internalNotes" />
       </Field>
       <ActionMessage error="No pudimos actualizar el lead." status={status} success="Lead actualizado." />
-      <button className="inline-flex h-11 items-center justify-center gap-2 border border-ink/20 px-4 text-xs font-semibold uppercase tracking-[0.12em]" disabled={status === "saving"} type="submit">
+      <button className="inline-flex h-11 w-full items-center justify-center gap-2 border border-ink/20 px-4 text-xs font-semibold uppercase tracking-[0.12em] sm:w-auto" disabled={status === "saving"} type="submit">
         {status === "saving" ? <Loader2 className="animate-spin" size={14} /> : <Save size={14} />}
         Guardar lead
       </button>
@@ -223,7 +223,7 @@ export function CreateClientProjectForm({ clientId }: { clientId: string }) {
         </select>
       </Field>
       <ActionMessage error="No pudimos crear el proyecto." status={status} success="Proyecto creado." />
-      <button className="inline-flex h-11 items-center justify-center gap-2 border border-ink/20 px-4 text-xs font-semibold uppercase tracking-[0.12em]" disabled={status === "saving"} type="submit">
+      <button className="inline-flex h-11 w-full items-center justify-center gap-2 border border-ink/20 px-4 text-xs font-semibold uppercase tracking-[0.12em] sm:w-auto" disabled={status === "saving"} type="submit">
         {status === "saving" ? <Loader2 className="animate-spin" size={14} /> : <Plus size={14} />}
         Crear proyecto
       </button>
@@ -244,7 +244,7 @@ export function WorkQuickActions({ id, published, featured, videoStatus }: { id:
 
   return (
     <div className="mt-6 grid gap-2">
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid gap-2 sm:grid-cols-2">
         <button className="border border-ink/20 px-3 py-3 text-xs font-semibold uppercase tracking-[0.12em]" disabled={isPending} onClick={() => update({ published: !published })} type="button">
           {published ? "Despublicar" : "Publicar"}
         </button>
@@ -323,7 +323,7 @@ export function HomeSettingsForm({
         </Field>
       </div>
       <ActionMessage error="No pudimos guardar la configuración." status={status} success="Configuración guardada." />
-      <button className="inline-flex h-11 items-center justify-center gap-2 bg-ink px-4 text-xs font-semibold uppercase tracking-[0.12em] text-paper" disabled={status === "saving"} type="submit">
+      <button className="inline-flex h-11 w-full items-center justify-center gap-2 bg-ink px-4 text-xs font-semibold uppercase tracking-[0.12em] text-paper sm:w-auto" disabled={status === "saving"} type="submit">
         {status === "saving" ? <Loader2 className="animate-spin" size={14} /> : <Check size={14} />}
         Guardar Home
       </button>
