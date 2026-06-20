@@ -7,6 +7,7 @@ Este directorio centraliza la documentacion tecnica del sitio de Pao Vergara.
 - [Resumen tecnico](./technical/README.md)
 - [Arquitectura](./technical/architecture.md)
 - [Contexto rapido para IA](./technical/ai-context.md)
+- [Handoff para continuar en Codex](./codex-handoff.md)
 - [Guia para codificar con IA](./technical/ai-coding-guide.md)
 - [Decisiones tecnicas](./technical/technical-decisions.md)
 - [Seguridad](./technical/security.md)
